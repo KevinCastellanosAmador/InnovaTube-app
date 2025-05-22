@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,6 @@
     <title>InnovaTube</title>
     <link href="<?php echo BASE_URL . 'Assets/css/login.css'; ?>" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script defer src="script.js"></script>
 </head>
 
 <body>
@@ -19,7 +18,7 @@
         <div class="login-box" id="loginBox">
             <div class="form-side">
                 <div class="form-wrapper" id="formWrapper">
-                    <div class="form login-form">
+                    <div class="form login-form active">
                         <h2>
                             <img src="<?php echo BASE_URL . 'Assets/images/icons/icono.png'; ?>" alt="Logo"
                                 class="logo-icon">
@@ -30,11 +29,11 @@
                         <form id="loginForm">
                             <div class="input-group">
                                 <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Usuario" required>
+                                <input type="text" id="usuario_l" name="usuario_l" placeholder="Usuario" required>
                             </div>
                             <div class="input-group">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Contraseña" required>
+                                <input type="password" id="contraseña_l" name="contraseña_l" placeholder="Contraseña" required>
                             </div>
                             <button type="submit" class="btn">INGRESAR</button>
                         </form>
@@ -67,7 +66,7 @@
                             </div>
                             <div class="input-group">
                             <i class="fa-solid fa-check-double"></i>
-                                <input type="password" placeholder="Confirmar Contraseña" required>
+                                <input type="password" placeholder="Confirmar contraseña" required>
                             </div>
                             <button type="submit" class="btn">REGISTRARSE</button>
                         </form>
@@ -78,7 +77,7 @@
 
             <div class="image-side" id="imageSide">
                 <div class="overlay">
-                    <h1 class="brand-logo">∞ Por Kevin Castellanos</h1>
+                    <h1 class="brand-logo">∞ By Kevin Castellanos</h1>
                     <p>"Descubre, guarda y disfruta tus videos favoritos"</p>
                 </div>
             </div>
@@ -87,32 +86,8 @@
 </body>
 
 <script>
-    window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        const container = document.querySelector('.container');
-
-        preloader.style.display = 'none';
-        container.style.display = 'flex';
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const formSide = document.querySelector('.form-side');
-        const loginBox = document.getElementById('loginBox');
-        const showRegister = document.getElementById('showRegister');
-        const showLogin = document.getElementById('showLogin');
-
-        showRegister.addEventListener('click', e => {
-            e.preventDefault();
-            formSide.classList.add('show-register');
-            loginBox.classList.add('show-register');
-        });
-
-        showLogin.addEventListener('click', e => {
-            e.preventDefault();
-            formSide.classList.remove('show-register');
-            loginBox.classList.remove('show-register');
-        });
-    });
-</script>
+    const base_url = '<?php echo BASE_URL; ?>';
+  </script>
+  <script src="<?php echo BASE_URL . 'Assets/js/login.js'; ?>"></script>
 
 </html>

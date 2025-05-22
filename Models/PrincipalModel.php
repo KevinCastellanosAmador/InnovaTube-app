@@ -5,6 +5,11 @@ class PrincipalModel extends Query{
         parent::__construct();
     }
 
+    public function getUsuario($user)
+    {
+        return $this->select("SELECT * FROM usuarios WHERE usuario = '$user'");
+    }
+
 }
 
 ?>
