@@ -76,17 +76,20 @@ document.addEventListener("DOMContentLoaded", function () {
       if (this.readyState == 4 && this.status == 200) {
         const res = JSON.parse(this.responseText);
         if (res.tipo == "success") {
+          frm.reset();
           window.location = base_url + "errors";
         }
       }
     };
   });
 
+
+// formaulario de registro
   const frmr = document.querySelector("#registerForm");
 
   frmr.addEventListener("submit", function (e) {
     e.preventDefault();
-
+    // validación de captcha
     const captchaResponse = grecaptcha.getResponse();
     if (!captchaResponse) {
       alert("Por favor, verifica que no eres un robot.");
@@ -112,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (this.readyState == 4 && this.status == 200) {
         const res = JSON.parse(this.responseText);
         if (res.tipo == "success") {
+          frmr.reset();
           window.location = base_url + "errors";
         } else {
           alert(res.mensaje);
