@@ -7,6 +7,7 @@
     <title>InnovaTube</title>
     <link href="<?php echo BASE_URL . 'Assets/css/login.css'; ?>" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -33,7 +34,8 @@
                             </div>
                             <div class="input-group">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" id="contraseña_l" name="contraseña_l" placeholder="Contraseña" required>
+                                <input type="password" id="contraseña_l" name="contraseña_l" placeholder="Contraseña"
+                                    required>
                             </div>
                             <button type="submit" class="btn">INGRESAR</button>
                         </form>
@@ -50,24 +52,29 @@
                         <form id="registerForm">
                             <div class="input-group">
                                 <i class="fa-solid fa-id-card"></i>
-                                <input type="text" placeholder="Nombre(s) y Apellidos" required>
+                                <input type="text" id="nombre_r" name="nombre_r" placeholder="Nombre(s) y Apellidos"
+                                    required>
                             </div>
                             <div class="input-group">
                                 <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Usuario" required>
+                                <input type="text" id="usuario_r" name="usuario_r" placeholder="Usuario" required>
                             </div>
                             <div class="input-group">
                                 <i class="fa-solid fa-envelope"></i>
-                                <input type="email" placeholder="Correo electrónico" required>
+                                <input type="email" id="correo_r" name="correo_r" placeholder="Correo electrónico"
+                                    required>
                             </div>
                             <div class="input-group">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" placeholder="Contraseña" required>
+                                <input type="password" id="contraseña_r" name="contraseña_r" placeholder="Contraseña"
+                                    required>
                             </div>
                             <div class="input-group">
-                            <i class="fa-solid fa-check-double"></i>
-                                <input type="password" placeholder="Confirmar contraseña" required>
+                                <i class="fa-solid fa-check-double"></i>
+                                <input type="password" id="contraseña_rc" name="contraseña_rc"
+                                    placeholder="Confirmar contraseña" required>
                             </div>
+                            <div class="g-recaptcha" data-sitekey="6Lc4yUYrAAAAABMOCCY4ZQ-Ho0sBYAm8vRrIykXq"></div>
                             <button type="submit" class="btn">REGISTRARSE</button>
                         </form>
                         <p class="signup">¿Ya tienes una cuenta? <a href="#" id="showLogin">Inicia sesión</a></p>
@@ -83,11 +90,12 @@
             </div>
         </div>
     </div>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfQxkYrAAAAAHcO74S8K7DtmwMZDOeaN_zVe6OW"></script>
 </body>
 
 <script>
     const base_url = '<?php echo BASE_URL; ?>';
-  </script>
-  <script src="<?php echo BASE_URL . 'Assets/js/login.js'; ?>"></script>
+</script>
+<script src="<?php echo BASE_URL . 'Assets/js/login.js'; ?>"></script>
 
 </html>

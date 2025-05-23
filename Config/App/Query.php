@@ -7,7 +7,7 @@ class Query extends Conexion
         $this->pdo = new Conexion();
         $this->con = $this->pdo->conect();
     }
-    public function select(string $sql)
+    public function GET(string $sql)
     {
         $this->sql = $sql;
         $resul = $this->con->prepare($this->sql);
@@ -15,7 +15,7 @@ class Query extends Conexion
         $data = $resul->fetch(PDO::FETCH_ASSOC);
         return $data;
     }
-    public function selectAll(string $sql)
+    public function GETALL(string $sql)
     {
         $this->sql = $sql;
         $resul = $this->con->prepare($this->sql);
@@ -23,7 +23,7 @@ class Query extends Conexion
         $data = $resul->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
-    public function save(string $sql, array $datos)
+    public function PUT(string $sql, array $datos)
     {
         $this->sql = $sql;
         $this->datos = $datos;
@@ -36,7 +36,7 @@ class Query extends Conexion
         }
         return $res;
     }
-    public function insertar(string $sql, array $datos)
+    public function POST(string $sql, array $datos)
     {
         $this->sql = $sql;
         $this->datos = $datos;

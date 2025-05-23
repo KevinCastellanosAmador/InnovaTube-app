@@ -6,11 +6,12 @@
 }
 
 body {
-  background: #f2f2f2;
+  background: url("../images/bg/BGPL.jpg") center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* CAMBIAR height por min-height */
+  overflow-x: hidden; /* Opcional: previene scroll horizontal */
 }
 
 .container {
@@ -40,8 +41,7 @@ body {
 
 .image-side {
   width: 50%;
-  background: url("../images/bg/BGL.jpg")
-    center/cover no-repeat;
+  background: url("../images/bg/BGL.jpg") center/cover no-repeat;
   position: relative;
 }
 
@@ -167,7 +167,6 @@ body {
   }
 }
 
-
 .form-wrapper {
   position: relative;
   width: 100%;
@@ -250,76 +249,97 @@ body {
   color: #de0437;
 }
 
+.grecaptcha-badge {
+  visibility: hidden !important;
+  display: none !important;
+}
+
+.g-recaptcha {
+  transform: scale(0.85);
+  transform-origin: center;
+  display: flex;
+  justify-content: center;
+}
 /*Responsividad*/
 @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      width: 95%;
-      height: auto;
-      min-width: 90%;
-      border-radius: 16px;
-      box-shadow: none;
-      align-items: center;
-    }
-
-    .form.active {
-        opacity: 1;
-        pointer-events: auto;
-        z-index: 2;
-      }
-    
-      .form-side {
-        position: relative;
-      }
-  
-    .login-box {
-      flex-direction: column;
-    }
-  
-    .image-side {
-      display: none;
-    }
-  
-    .form-side {
-      width: 100%;
-      padding: 30px 20px;
-    }
-  
-    .form {
-      position: relative;
-      transform: none !important;
-      opacity: 1 !important;
-      z-index: 2;
-      align-items: center;
-    }
-  
-    .form-side.show-register .login-form,
-    .form-side.show-register .register-form {
-      transform: none;
-      opacity: 1;
-    }
-  
-    .input-group input {
-      font-size: 16px;
-    }
-  
-    .brand-logo {
-      font-size: 28px;
-    }
-  
-    .signup {
-      text-align: center;
-    }
-  
-    .btn {
-      font-size: 16px;
-    }
+  .container {
+    flex-direction: column;
+    width: 95%;
+    height: auto; /* evita altura fija */
+    min-width: 90%;
+    border-radius: 16px;
+    box-shadow: none;
+    align-items: center;
   }
 
-  @media (max-width: 480px) {
-    .loader {
-      width: 40px;
-      height: 40px;
-      border-width: 5px;
-    }
+  .form {
+    position: relative;
+    height: auto; /* importante */
+    overflow-y: visible; /* permitir crecimiento */
   }
+
+  .form-side {
+    width: 100%;
+    padding: 30px 20px;
+    height: auto; /* permite crecer */
+  }
+
+  .form.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+  }
+
+
+
+  .login-box {
+    flex-direction: column;
+  }
+
+  .image-side {
+    display: none;
+  }
+
+  .form-side {
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .form {
+    position: relative;
+    transform: none !important;
+    opacity: 1 !important;
+    z-index: 2;
+    align-items: center;
+  }
+
+  .form-side.show-register .login-form,
+  .form-side.show-register .register-form {
+    transform: none;
+    opacity: 1;
+  }
+
+  .input-group input {
+    font-size: 16px;
+  }
+
+  .brand-logo {
+    font-size: 28px;
+  }
+
+  .signup {
+    text-align: center;
+  }
+
+  .btn {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loader {
+    width: 40px;
+    height: 40px;
+    border-width: 5px;
+  }
+}

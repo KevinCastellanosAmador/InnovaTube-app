@@ -61,8 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //validacion del login
 const frm = document.querySelector("#loginForm");
-const usuario_l = document.querySelector("#usuario_l");
-const contraseña_l = document.querySelector("#contraseña_l");
 
 document.addEventListener("DOMContentLoaded", function () {
   frm.addEventListener("submit", function (e) {
@@ -79,6 +77,45 @@ document.addEventListener("DOMContentLoaded", function () {
         const res = JSON.parse(this.responseText);
         if (res.tipo == "success") {
           window.location = base_url + "errors";
+        }
+      }
+    };
+  });
+
+  const frmr = document.querySelector("#registerForm");
+
+  frmr.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const captchaResponse = grecaptcha.getResponse();
+    if (!captchaResponse) {
+      alert("Por favor, verifica que no eres un robot.");
+      return;
+    }
+
+    const contraseña = document.getElementById("contraseña_r").value;
+    const confirmacion = document.getElementById("contraseña_rc").value;
+    if (contraseña !== confirmacion) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
+    const data = new FormData(frmr);
+    data.append("g-recaptcha-response", captchaResponse);
+
+    const http = new XMLHttpRequest();
+    const url = base_url + "principal/postUser";
+
+    http.open("POST", url, true);
+    http.send(data);
+    http.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        const res = JSON.parse(this.responseText);
+        if (res.tipo == "success") {
+          window.location = base_url + "errors";
+        } else {
+          alert(res.mensaje);
+          grecaptcha.reset(); // Reinicia el captcha si hubo error
         }
       }
     };
