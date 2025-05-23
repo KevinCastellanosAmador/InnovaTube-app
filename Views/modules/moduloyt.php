@@ -9,48 +9,65 @@
   <script defer src="app.js"></script>
 </head>
 
-<body class="bg-gray-100 text-gray-900">
-
+<body class="bg-gray-50 text-gray-800 font-sans">
   <!-- Navbar -->
-  <header
-    class="bg-white shadow p-4 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 sticky top-0 z-10">
-    <div class="text-2xl font-bold text-red-600">InnovaTube</div>
+  <header class="bg-white shadow-sm p-4 flex flex-col sm:flex-row justify-between items-center gap-4 sticky top-0 z-10">
+    <div class="text-3xl font-bold text-red-600 tracking-tight">InnovaTube</div>
 
-    <div class="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
-      <div class="flex w-full sm:w-auto">
+    <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+      <div class="flex w-full sm:w-80">
         <input type="text" id="searchInput" placeholder="Buscar videos..."
-          class="border border-gray-300 rounded-l px-3 py-2 w-full sm:w-64" />
-        <button onclick="searchVideos()" class="bg-red-600 text-white px-4 py-2 rounded-r hover:bg-red-700">
+          class="border border-gray-300 rounded-l-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-red-500" />
+        <button onclick="searchVideos()" class="bg-red-600 text-white px-4 py-2 rounded-r-lg hover:bg-red-700">
           Buscar
         </button>
       </div>
-      <div class="flex items-center gap-2 mt-2 sm:mt-0">
-        <span id="username" class="text-sm font-medium text-gray-700 hidden sm:inline">Usuario</span>
-        <button onclick="logout()" class="text-sm bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">
+      <div class="flex items-center gap-3 text-sm font-medium">
+        <span id="username" class="hidden sm:inline text-gray-700">Usuario</span>
+        <button onclick="logout()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg">
           Cerrar sesión
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main layout -->
-  <main class="flex flex-col lg:flex-row gap-4 p-4">
-    <!-- Sección de videos -->
+  <!-- Layout principal -->
+  <main class="flex flex-col lg:flex-row gap-6 p-6">
+    <!-- Resultados -->
     <section class="flex-1">
-      <h2 class="text-lg font-semibold mb-4">Resultados</h2>
-      <div id="videosContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Videos se cargan aquí -->
+      <h2 class="text-xl font-semibold mb-4">Resultados</h2>
+      <div id="videosContainer" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        <!-- Videos aquí -->
       </div>
     </section>
 
     <!-- Favoritos -->
-    <aside class="lg:w-1/4 bg-white shadow p-4 rounded h-fit">
-      <h2 class="text-lg font-semibold mb-4">Favoritos</h2>
-      <ul id="favoritesList" class="space-y-2 text-sm">
+    <aside class="lg:w-1/4 bg-white shadow rounded-2xl p-5">
+      <h2 class="text-xl font-semibold mb-4">⭐ Favoritos</h2>
+      <ul id="favoritesList" class="space-y-4">
         <!-- Lista de favoritos -->
       </ul>
     </aside>
   </main>
+
+  <!-- Estilo para tarjetas de video -->
+  <style>
+    .video-card {
+      @apply bg-white p-4 rounded-2xl shadow transition hover:shadow-lg flex flex-col;
+    }
+
+    .video-title {
+      @apply font-semibold text-base text-gray-800 leading-snug mt-2 truncate;
+    }
+
+    .video-channel {
+      @apply text-sm text-gray-500 mt-1;
+    }
+
+    .fav-button {
+      @apply mt-3 inline-flex items-center gap-1 text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md;
+    }
+  </style>
   <script>
     const base_url = '<?php echo BASE_URL; ?>';
 
@@ -133,25 +150,23 @@
           const channel = video.snippet.channelTitle;
 
           const videoCard = document.createElement("div");
-          videoCard.className = "bg-white p-3 rounded shadow hover:shadow-lg transition";
+          videoCard.className = "video-card";
 
           videoCard.innerHTML = `
-            <iframe 
-              width="100%" 
-              height="200" 
-              src="https://www.youtube.com/embed/${videoId}" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen 
-              class="rounded mb-2">
-            </iframe>
-            <h3 class="font-semibold text-sm truncate mb-1">${title}</h3>
-            <p class="text-xs text-gray-500">Canal: ${channel}</p>
-            <button onclick="addToFavorites('${videoId}', '${title.replace(/'/g, "\\'")}')" 
-              class="mt-2 text-xs bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-              ⭐ Agregar a Favoritos
-            </button>
-          `;
+  <iframe 
+    width="100%" 
+    height="200" 
+    src="https://www.youtube.com/embed/${videoId}" 
+    frameborder="0" 
+    allowfullscreen 
+    class="rounded-lg mb-2">
+  </iframe>
+  <h3 class="video-title">${title}</h3>
+  <p class="video-channel">Canal: ${channel}</p>
+  <button onclick="addToFavorites('${videoId}', '${title.replace(/'/g, "\\'")}')" class="fav-button">
+    ⭐ Agregar a Favoritos
+  </button>
+`;
 
           container.appendChild(videoCard);
         });
