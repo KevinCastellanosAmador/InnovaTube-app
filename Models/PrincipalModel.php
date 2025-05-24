@@ -1,5 +1,6 @@
 <?php
-class PrincipalModel extends Query{
+class PrincipalModel extends Query
+{
     public function __construct()
     {
         parent::__construct();
@@ -21,6 +22,20 @@ class PrincipalModel extends Query{
     {
         $sql = "SELECT * FROM usuarios WHERE $item = '$value'";
         return $this->GET($sql);
+    }
+
+    public function validateRecovery($usuario, $correo)
+    {
+        $sql = "SELECT id, nombre, clave FROM usuarios WHERE usuario = '$usuario' AND correo = '$correo'";
+        $data = $this->GET($sql);
+        return $data;
+    }
+
+    public function updatePassword($claveHash, $id_usuario)
+    {
+        $sql = "UPDATE usuarios SET clave = ? WHERE id = ?";
+        $datos = array($claveHash, $id_usuario);
+        return $this->POST($sql, $datos);
     }
 
 }
