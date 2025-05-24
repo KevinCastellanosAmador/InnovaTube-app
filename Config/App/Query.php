@@ -49,6 +49,20 @@ class Query extends Conexion
         }
         return $res;
     }
+
+    public function DELETE(string $sql, array $datos)
+    {
+        $this->sql = $sql;
+        $this->datos = $datos;
+        $delete = $this->con->prepare($this->sql);
+        $data = $delete->execute($this->datos);
+        if ($data) {
+            $res = 1; // Éxito al eliminar el registro
+        } else {
+            $res = 0; // Error al eliminar el registro
+        }
+        return $res;
+    }
 }
 
 ?>

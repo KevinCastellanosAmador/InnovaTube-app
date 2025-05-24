@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const frm = document.querySelector("#loginForm");
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Login
   frm.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -76,30 +77,58 @@ document.addEventListener("DOMContentLoaded", function () {
       if (this.readyState == 4 && this.status == 200) {
         const res = JSON.parse(this.responseText);
         if (res.tipo == "success") {
-          frm.reset();
-          window.location = base_url + "errors";
+          Swal.fire({
+            icon: "success",
+            title: res.mensaje,
+            showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          }).then(() => {
+            frm.reset();
+            window.location = base_url + "moduloyt";
+          });
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: res.mensaje,
+            showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          });
         }
       }
     };
   });
 
-
-// formaulario de registro
+  // formaulario de registro
   const frmr = document.querySelector("#registerForm");
 
+  // Registro
   frmr.addEventListener("submit", function (e) {
     e.preventDefault();
-    // validación de captcha
+
     const captchaResponse = grecaptcha.getResponse();
     if (!captchaResponse) {
-      alert("Por favor, verifica que no eres un robot.");
+      Swal.fire({
+        icon: "warning",
+        title: "Por favor, completa el captcha.",
+        showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+      });
       return;
     }
 
     const contraseña = document.getElementById("contraseña_r").value;
     const confirmacion = document.getElementById("contraseña_rc").value;
     if (contraseña !== confirmacion) {
-      alert("Las contraseñas no coinciden");
+      Swal.fire({
+        icon: "warning",
+        title: "Las contraseñas no coinciden",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
       return;
     }
 
@@ -115,11 +144,25 @@ document.addEventListener("DOMContentLoaded", function () {
       if (this.readyState == 4 && this.status == 200) {
         const res = JSON.parse(this.responseText);
         if (res.tipo == "success") {
-          frmr.reset();
-          window.location = base_url + "errors";
+          Swal.fire({
+            icon: "success",
+            title: res.mensaje,
+            showConfirmButton: false,
+            ttimer: 2000,
+            timerProgressBar: true,
+          }).then(() => {
+            frmr.reset();
+            window.location = base_url + "moduloyt";
+          });
         } else {
-          alert(res.mensaje);
-          grecaptcha.reset(); // Reinicia el captcha si hubo error
+          Swal.fire({
+            icon: res.tipo === "warning" ? "warning" : "error",
+            title: res.mensaje,
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+          });
+          grecaptcha.reset();
         }
       }
     };
