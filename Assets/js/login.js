@@ -168,3 +168,62 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   });
 });
+
+
+
+document.getElementById("forgotPasswordLink").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.querySelector(".login-form").style.display = "none";
+  forgotForm.style.display = "block";
+});
+
+document.getElementById("backToLogin").addEventListener("click", (e) => {
+  e.preventDefault();
+  forgotForm.style.display = "none";
+  document.querySelector(".login-form").style.display = "block";
+});
+
+const forgotForm = document.querySelector(".forgot-form");
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+const backToLogin = document.getElementById("backToLogin");
+
+forgotPasswordLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelector(".login-form").style.display = "none";
+    forgotForm.style.display = "block";
+});
+
+backToLogin.addEventListener("click", (e) => {
+    e.preventDefault();
+    forgotForm.style.display = "none";
+    document.querySelector(".login-form").style.display = "block";
+});
+
+document.getElementById("forgotForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const data = new FormData(this);
+    const http = new XMLHttpRequest();
+    const url = base_url + "principal/sendPassword";
+
+    http.open("POST", url, true);
+    http.send(data);
+
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const res = JSON.parse(this.responseText);
+            Swal.fire({
+                icon: res.tipo,
+                text: res.mensaje,
+                showConfirmButton: false,
+                timer: 2500
+            });
+
+            if (res.tipo === "success") {
+                document.getElementById("forgotForm").reset();
+                forgotForm.style.display = "none";
+                document.querySelector(".login-form").style.display = "block";
+            }
+        }
+    };
+});
