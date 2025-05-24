@@ -41,6 +41,8 @@
                             <button type="submit" class="btn">INGRESAR</button>
                         </form>
                         <p class="signup">¿No tienes una cuenta? <a href="#" id="showRegister">Regístrate ahora</a></p>
+                        <p class="signup">¿Olvidaste tu contraseña? <a href="#" id="forgotPasswordLink">Recuperar
+                                contraseña</a></p>
                     </div>
 
                     <div class="form register-form">
@@ -80,8 +82,32 @@
                         </form>
                         <p class="signup">¿Ya tienes una cuenta? <a href="#" id="showLogin">Inicia sesión</a></p>
                     </div>
+
+                    <div class="form forgot-form" style="display: none;">
+                        <h2>
+                            <img src="<?php echo BASE_URL . 'Assets/images/icons/icono.png'; ?>" alt="Logo"
+                                class="logo-icon">
+                            Recuperar <span class="brand">Contraseña</span>
+                        </h2>
+                        <p class="description">Ingresa tu usuario y correo electrónico. Si coinciden, recibirás tu
+                            contraseña por correo.</p>
+                        <form id="forgotForm">
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="usuario_f" name="usuario_f" placeholder="Usuario" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="correo_f" name="correo_f" placeholder="Correo electrónico"
+                                    required>
+                            </div>
+                            <button type="submit" class="btn">ENVIAR CONTRASEÑA</button>
+                        </form>
+                        <p class="signup"><a href="#" id="backToLogin">Volver al inicio de sesión</a></p>
+                    </div>
                 </div>
             </div>
+
 
             <div class="image-side" id="imageSide">
                 <div class="overlay">
