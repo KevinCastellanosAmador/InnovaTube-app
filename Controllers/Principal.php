@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 class Principal extends Controller
 {
     public function __construct()
@@ -71,6 +76,58 @@ class Principal extends Controller
         } else {
             $res = array('tipo' => 'warning', 'mensaje' => 'ESTE NOMBRE DE USUARIO YA EXISTE ');
         }
+        echo json_encode($res, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+    public function sendPassword()
+    {
+        $usuario = $_POST['usuario_f'];
+        $correo = $_POST['correo_f'];
+
+        $user = $this->model->validateRecovery($usuario, $correo);
+
+        if (!empty($user)) {
+            $nuevaClave = bin2hex(random_bytes(4)); // Contraseña temporal (8 caracteres)
+            $claveHash = password_hash($nuevaClave, PASSWORD_DEFAULT);
+            $this->model->updatePassword($claveHash, $user['id']);
+
+            // Preparar el correo
+            $mail = new PHPMailer(true);
+
+            try {
+                // Configurar servidor SMTP
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com'; // Cambia esto si usas otro proveedor
+                $mail->SMTPAuth = true;
+                $mail->Username = 'kevinriper68@gmail.com';
+                $mail->Password = 'saxa bitw ajso ttke'; // No tu contraseña real, usa contraseña de aplicación
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                // Datos del correo
+                $mail->setFrom('noreply@innovatube.com', 'InnovaTube');
+                $mail->addAddress($correo, $user['nombre']);
+
+                $mail->isHTML(true);
+                $mail->CharSet = 'UTF-8';
+                $mail->Encoding = 'base64';
+                $mail->Subject = 'Recuperación de contraseña - InnovaTube';
+                $mail->Body = "
+                <p>Hola <strong>{$user['nombre']}</strong>,</p>
+                <p>Tu nueva contraseña temporal es: <strong>{$nuevaClave}</strong></p>
+                <p>Por seguridad, cámbiala al iniciar sesión.</p>
+            ";
+
+                $mail->send();
+                $res = ['tipo' => 'success', 'mensaje' => 'Hemos enviado una nueva contraseña a tu correo.'];
+            } catch (Exception $e) {
+                $res = ['tipo' => 'error', 'mensaje' => 'Error al enviar el correo: ' . $mail->ErrorInfo];
+            }
+        } else {
+            $res = ['tipo' => 'warning', 'mensaje' => 'Usuario y correo no coinciden.'];
+        }
+
         echo json_encode($res, JSON_UNESCAPED_UNICODE);
         die();
     }
